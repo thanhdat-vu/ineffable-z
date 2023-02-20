@@ -1,16 +1,12 @@
 import type { NextPage } from "next";
-import Head from "next/head";
+import Layout from "components/Layout";
+import metadata from "json/metadata.json";
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <Head>
-        <title></title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout metadata={metadata.homepage}>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    </Layout>
   );
 };
 
