@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { stringToPathName } from "lib/utils";
 import Image from "next/image";
 
 interface props {
@@ -9,14 +10,14 @@ interface props {
 const RecipeCard = ({ cocktail, className }: props) => {
   return cocktail ? (
     <Link
-      href={`/cocktails/${cocktail.idDrink}`}
+      href={`/cocktails/${stringToPathName(cocktail.strDrink)}`}
       className={`space-y-2 mb-10 | inline-block border sm:border-2 border-gold text-center ${className}`}
     >
       <figure>
         <Image
           src={cocktail.strDrinkThumb}
           alt={cocktail.strDrink}
-          className="mb-4 | relative top-1 sm:top-2 left-1 sm:left-2 w-full h-full"
+          className="mb-4 | relative top-1 sm:top-2 left-1 sm:left-2 w-full"
           width={200}
           height={200}
         />

@@ -1,13 +1,15 @@
 import type { GetStaticProps, NextPage } from "next";
-import { Layout, RecipeCard } from "components";
+import { IngredientCard, Layout, RecipeCard } from "components";
 import metadata from "json/metadata.json";
-import { getPopularCocktails } from "lib/api";
+import { getPopularCocktails, getPopularIngredients } from "lib/api";
+import Link from "next/link";
 
 interface props {
   popularCocktails?: Array<any>;
+  popularIngredients?: Array<any>;
 }
 
-const Home: NextPage = ({ popularCocktails }: props) => {
+const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
   return (
     <Layout metadata={metadata.homepage}>
       {/* Popular Cocktails */}
@@ -33,15 +35,40 @@ const Home: NextPage = ({ popularCocktails }: props) => {
               ))}
         </div>
       </section>
+
+      {/* Popular Ingredients */}
+      <section className="py-16 | w-max mx-auto">
+        <h2 className="mb-6 sm:mb-8 | text-sm sm:text-xl text-gold font-bold">
+          Popular Ingredients
+        </h2>
+        <div className="lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-12 | w-max grid grid-cols-2">
+          {popularIngredients
+            ? popularIngredients.map((ingredient) => (
+                <IngredientCard
+                  key={ingredient.idIngredient}
+                  ingredientName={ingredient.strIngredient}
+                />
+              ))
+            : [...Array(4)].map((_, i) => <IngredientCard key={i} />)}
+        </div>
+        <Link
+          href="/ingredients"
+          className="mt-8 sm:mt-12 | block w-max mx-auto text-center italic"
+        >
+          All Ingredients &gt;&gt;
+        </Link>
+      </section>
     </Layout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   const popularCocktails = await getPopularCocktails();
+  const popularIngredients = await getPopularIngredients();
   return {
     props: {
       popularCocktails,
+      popularIngredients,
     },
   };
 };

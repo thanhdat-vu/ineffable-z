@@ -16,3 +16,27 @@ export async function getPopularCocktails() {
     console.error(err);
   }
 }
+
+export async function getIngredientByID(id: number) {
+  try {
+    const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);
+    const data = await res.json();
+    const ingredient = data.ingredients[0];
+    return ingredient;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getPopularIngredients() {
+  try {
+    const popularIngredients = [];
+    for (let i = 1; i <= 4; i++) {
+      let ingredient = await getIngredientByID(i);
+      popularIngredients.push(ingredient);
+    }
+    return popularIngredients;
+  } catch (err) {
+    console.error(err);
+  }
+}
