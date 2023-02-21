@@ -2,25 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface props {
-  recipe?: any;
+  cocktail?: any;
   className?: string;
 }
 
-const RecipeCard = ({ recipe, className }: props) => {
-  return recipe ? (
+const RecipeCard = ({ cocktail, className }: props) => {
+  return cocktail ? (
     <Link
-      href={`/cocktails/${recipe.idDrink}`}
+      href={`/cocktails/${cocktail.idDrink}`}
       className={`space-y-2 mb-10 | inline-block border sm:border-2 border-gold text-center ${className}`}
     >
       <figure>
         <Image
-          src={recipe.strDrinkThumb}
-          alt={recipe.strDrink}
+          src={cocktail.strDrinkThumb}
+          alt={cocktail.strDrink}
           className="mb-4 | relative top-1 sm:top-2 left-1 sm:left-2 w-full h-full"
           width={200}
           height={200}
         />
-        <figcaption>{recipe.strDrink}</figcaption>
+        <figcaption>{cocktail.strDrink}</figcaption>
       </figure>
     </Link>
   ) : (
