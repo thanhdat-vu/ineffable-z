@@ -3,14 +3,14 @@ import Head from "next/head";
 import { Playfair_Display } from "@next/font/google";
 
 const playfairDisplay = Playfair_Display({
-  subsets: ["latin-ext"],
+  subsets: ["latin"],
   variable: "--font-playfair-display",
 });
 
-type props = {
+interface props {
   metadata: { title: string; description: string };
   children: ReactNode;
-};
+}
 
 const Layout = ({ metadata, children }: props) => {
   return (
