@@ -70,6 +70,13 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
         </div>
       </section>
 
+      {/* Quote */}
+      <div className="my-16 | w-40 sm:w-56 h-16 sm:h-24 mx-auto border-y sm:border-y-2 border-gold">
+        <q className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-max text-center font-semibold italic text-gold tracking-wide">
+          Every empty bottle is filled with a great story
+        </q>
+      </div>
+
       {/* Popular Ingredients */}
       <section className="py-16 | w-max mx-auto">
         <h2 className="mb-6 sm:mb-8 | text-sm sm:text-xl text-gold font-bold">
