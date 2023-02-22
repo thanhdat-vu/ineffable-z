@@ -14,6 +14,9 @@ module.exports = {
       backgroundImage: {
         "hero-image": "url('/rum-smoke.jpg')",
       },
+      boxShadow: {
+        glass: "2px 4px 24px 0px rgba(255, 255, 255, 0.08)",
+      },
     },
   },
   plugins: [],
