@@ -94,7 +94,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
         </div>
         <Link
           href="/ingredients"
-          className="mt-8 sm:mt-12 | block w-max mx-auto text-center italic"
+          className="mt-8 sm:mt-12 | block w-max mx-auto text-center italic hover:text-shiny-gold"
         >
           All Ingredients &gt;&gt;
         </Link>

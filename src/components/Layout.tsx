@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
-import Head from "next/head";
 import { Playfair_Display } from "@next/font/google";
+import Head from "next/head";
 import NabBar from "./NabBar";
+import Footer from "./Footer";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ const Layout = ({ metadata, children }: props) => {
       </Head>
       <NabBar />
       <main>{children}</main>
+      <Footer />
     </div>
   );
 };

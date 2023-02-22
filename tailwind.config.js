@@ -10,6 +10,7 @@ module.exports = {
       },
       colors: {
         "rich-black": "#010203",
+        "shiny-gold": "#D4AF37",
       },
       backgroundImage: {
         "hero-image": "url('/rum-smoke.jpg')",
