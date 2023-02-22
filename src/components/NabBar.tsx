@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import categories from "json/categories.json";
 import { stringToPathName } from "lib/utils";
-import { BsList } from "react-icons/bs";
 
 const NabBar = () => {
   // check if user has scrolled
   const [isScrolled, setIsScrolled] = useState(false);
+  const scrollPositionRef = useRef(0);
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.pageYOffset !== 0);
     }
     window.addEventListener("scroll", handleScroll);
+    if (scrollPositionRef.current !== 0) {
+      setIsScrolled(scrollPositionRef.current !== 0);
+    }
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      scrollPositionRef.current = window.pageYOffset;
     };
   }, []);
 
