@@ -14,7 +14,7 @@ interface props {
 
 const Layout = ({ metadata, children }: props) => {
   return (
-    <div className="w-screen min-h-screen bg-rich-black text-white text-xs sm:text-base">
+    <div className="w-full min-h-screen bg-rich-black text-white text-xs sm:text-base">
       <Head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />

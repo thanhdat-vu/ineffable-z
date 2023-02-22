@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         "rich-black": "#010203",
       },
+      backgroundImage: {
+        "hero-image": "url('/rum-smoke.jpg')",
+      },
     },
   },
   plugins: [],

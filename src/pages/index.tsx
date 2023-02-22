@@ -1,8 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
+import { getPopularCocktails, getPopularIngredients } from "lib/api";
 import { IngredientCard, Layout, RecipeCard } from "components";
 import metadata from "json/metadata.json";
-import { getPopularCocktails, getPopularIngredients } from "lib/api";
 import Link from "next/link";
+import { BsArrowDown } from "react-icons/bs";
 
 interface props {
   popularCocktails?: Array<any>;
@@ -12,6 +13,39 @@ interface props {
 const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
   return (
     <Layout metadata={metadata.homepage}>
+      {/* Hero Section */}
+      <section className="h-screen bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center lg:bg-fixed relative">
+        {/* Overlay */}
+        <div className="opacity-70 | w-full h-full bg-rich-black"></div>
+
+        <div className="space-y-[8%] top-[20%] | absolute w-full flex flex-col items-center">
+          <div className="pl-4 sm:pl-8 | border-l-2 text-sm sm:text-xl">
+            <p>Searching for moments that are</p>
+            <p className="font-bold">
+              too great or extreme <br className="md:hidden" />
+              to be expressed or described in words
+            </p>
+          </div>
+
+          <p className="w-[22rem] sm:w-96 md:w-full | leading-5 sm:leading-normal text-center">
+            Welcome, stranger! In this place, you can find almost every
+            flavorsome cocktail recipe in the world!
+          </p>
+
+          <div>
+            <p>Not sure what to look for?</p>
+            <Link
+              href="/cocktails/random"
+              className="px-8 py-3 mt-2 | block bg-gray-400 hover:brightness-125 font-bold text-rich-black"
+            >
+              Give me anything
+            </Link>
+          </div>
+
+          <BsArrowDown className="mx-auto text-xl animate-bounce" />
+        </div>
+      </section>
+
       {/* Popular Cocktails */}
       <section className="py-16 | w-max mx-auto">
         <h2 className="mb-6 sm:mb-8 | text-sm sm:text-xl text-gold font-bold">
