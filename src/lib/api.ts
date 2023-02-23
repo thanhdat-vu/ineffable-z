@@ -17,6 +17,43 @@ export async function getPopularCocktails() {
   }
 }
 
+export async function getCocktailsByFirstLetter(firstLetter: string) {
+  try {
+    const res = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`
+    );
+    const data = await res.json();
+    const cocktails = data.drinks || [];
+    return cocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function filterCocktailData(cocktails: any[]) {
+  const fields = ["idDrink", "strDrink", "strDrinkThumb"];
+  const filteredCocktails = cocktails.map((cocktail) => {
+    return Object.keys(cocktail)
+      .filter((key) => fields.includes(key))
+      .reduce((acc, key) => ({ ...acc, [key]: cocktail[key] }), {});
+  });
+  return filteredCocktails;
+}
+
+export async function getAllCocktails() {
+  try {
+    let allCocktails: any[] = [];
+    for (let i of "12345679abcdefghijklmnopqrstvwyz") {
+      const cocktails = await getCocktailsByFirstLetter(i);
+      const filteredCocktails = filterCocktailData(cocktails);
+      allCocktails = [...allCocktails, ...filteredCocktails];
+    }
+    return allCocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getIngredientByID(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);

@@ -12,7 +12,7 @@ interface props {
 
 const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
   return (
-    <Layout metadata={metadata.homepage}>
+    <Layout metadata={metadata.home}>
       {/* Hero Section */}
       <section className="h-screen bg-hero-image bg-[length:auto_100%] sm:bg-cover bg-center lg:bg-fixed relative">
         {/* Overlay */}
