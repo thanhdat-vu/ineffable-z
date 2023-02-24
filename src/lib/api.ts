@@ -77,3 +77,17 @@ export async function getPopularIngredients() {
     console.error(err);
   }
 }
+
+export async function getAllIngredients() {
+  try {
+    const res = await fetch(`${API_URI}/list.php?i=list`);
+    const data = await res.json();
+    const allIngredients = data.drinks.sort((a: any, b: any) =>
+      a.strIngredient1.localeCompare(b.strIngredient1)
+    );
+    console.log(allIngredients);
+    return allIngredients;
+  } catch (err) {
+    console.error(err);
+  }
+}

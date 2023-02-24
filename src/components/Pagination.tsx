@@ -48,7 +48,7 @@ const Pagination = ({
   }
 
   return (
-    <nav className="mt-4 md:mt-8 | w-max mx-auto flex">
+    <nav className="mt-4 md:mt-12 | w-max mx-auto flex">
       <button
         className="p-2 hover:text-shiny-gold disabled:text-gray-800"
         onClick={() => handlePageChange(1)}

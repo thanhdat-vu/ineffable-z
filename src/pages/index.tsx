@@ -82,7 +82,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
         <h2 className="mb-6 sm:mb-8 | text-sm sm:text-xl text-gold font-bold">
           Popular Ingredients
         </h2>
-        <div className="lg:grid-cols-4 gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-12 | w-max grid grid-cols-2">
+        <div className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-12 | w-max grid grid-cols-2 lg:grid-cols-4">
           {popularIngredients
             ? popularIngredients.map((ingredient) => (
                 <IngredientCard
