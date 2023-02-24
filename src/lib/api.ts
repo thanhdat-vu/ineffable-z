@@ -54,6 +54,17 @@ export async function getAllCocktails() {
   }
 }
 
+export async function getCocktailsByCategory(category: string) {
+  try {
+    const res = await fetch(`${API_URI}/filter.php?c=${category}`);
+    const data = await res.json();
+    const cocktails = data.drinks || [];
+    return cocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getIngredientByID(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);

@@ -24,7 +24,7 @@ const Breadcrumb = ({ items }: props) => {
                   {item.label}
                 </Link>
               )}
-              {!isLast && " / "}
+              {!isLast && <span className="text-white/50"> / </span>}
             </li>
           );
         })}
