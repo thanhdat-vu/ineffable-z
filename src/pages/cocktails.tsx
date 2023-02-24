@@ -1,14 +1,20 @@
 import { GetStaticProps, NextPage } from "next";
-import { Layout, RecipeCard } from "../components";
+import { useRef, useState } from "react";
+import { Layout, RecipeCard, Breadcrumb, Pagination } from "../components";
 import { getAllCocktails } from "lib/api";
 import metadata from "json/metadata.json";
-import Breadcrumb from "components/Breadcrumb";
 
 interface props {
   allCocktails?: any[];
 }
 
 const Cocktails: NextPage = ({ allCocktails }: props) => {
+  const itemsPerPage = 32;
+  const [cocktails, setCocktails] = useState(
+    allCocktails?.slice(0, itemsPerPage)
+  );
+  const scrollToRef = useRef<HTMLInputElement>(null);
+
   return (
     <Layout metadata={metadata.cocktails}>
       <div className="my-24 lg:my-32 | w-max mx-auto">
@@ -31,16 +37,19 @@ const Cocktails: NextPage = ({ allCocktails }: props) => {
           </h2>
         </div>
 
-        <div className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4">
-          {allCocktails
-            ? allCocktails.map((cocktail) => (
+        <div
+          className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
+          ref={scrollToRef}
+        >
+          {cocktails
+            ? cocktails.map((cocktail) => (
                 <RecipeCard
                   key={cocktail.idDrink}
                   cocktail={cocktail}
                   className="w-32 sm:w-48 h-32 sm:h-48"
                 />
               ))
-            : [...Array(32)].map((_, i) => (
+            : [...Array(itemsPerPage)].map((_, i) => (
                 <RecipeCard
                   key={i}
                   cocktail={null}
@@ -48,6 +57,13 @@ const Cocktails: NextPage = ({ allCocktails }: props) => {
                 />
               ))}
         </div>
+
+        <Pagination
+          data={allCocktails || []}
+          setData={setCocktails}
+          scrollToElement={scrollToRef.current}
+          itemsPerPage={itemsPerPage}
+        />
       </div>
     </Layout>
   );
