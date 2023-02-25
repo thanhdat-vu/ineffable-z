@@ -72,7 +72,6 @@ export async function getCocktailDetailsById(id: number) {
     const res = await fetch(`${API_URI}/lookup.php?i=${id}`);
     const data = await res.json();
     const cocktail = data.drinks ? data.drinks[0] : {};
-    console.log(cocktail);
     return cocktail;
   } catch (err) {
     console.error(err);

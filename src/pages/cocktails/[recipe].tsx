@@ -1,5 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Breadcrumb, Layout, RecipeCard } from "components";
+import {
+  Breadcrumb,
+  Carousel,
+  IngredientCard,
+  Layout,
+  RecipeCard,
+} from "components";
 import { getAllCocktailIdsAndNames, getCocktailDetailsById } from "lib/api";
 import { breakToSentences, stringToPathName } from "lib/utils";
 
@@ -8,6 +14,21 @@ interface props {
 }
 
 const Recipe: NextPage = ({ cocktail }: props) => {
+  function getIngredients(cocktail: any) {
+    const ingredients = [];
+    for (let i = 1; cocktail[`strIngredient${i}`]; i++) {
+      let description =
+        cocktail[`strMeasure${i}`] + cocktail[`strIngredient${i}`];
+      ingredients.push({
+        strIngredient: cocktail[`strIngredient${i}`],
+        description: description,
+      });
+    }
+    return ingredients;
+  }
+
+  const ingredients = getIngredients(cocktail);
+
   return (
     <Layout
       metadata={{
@@ -83,6 +104,15 @@ const Recipe: NextPage = ({ cocktail }: props) => {
               <h3 className="w-64 mb-4 lg:mb-0 | text-sm sm:text-lg font-bold">
                 Ingredients
               </h3>
+              <Carousel>
+                {ingredients.map((ingredient, i) => (
+                  <IngredientCard
+                    key={i}
+                    ingredientName={ingredient.strIngredient}
+                    description={ingredient.description}
+                  />
+                ))}
+              </Carousel>
             </div>
           </div>
         </div>
