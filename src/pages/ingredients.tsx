@@ -38,7 +38,7 @@ const Ingredients: NextPage = ({ allIngredients }: props) => {
         </div>
 
         <div
-          className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
+          className="gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
           ref={scrollToRef}
         >
           {ingredients

@@ -1,3 +1,5 @@
+import { filterDataByFields } from "./utils";
+
 const API_URI = "https://www.thecocktaildb.com/api/json/v1/1";
 
 export async function getPopularCocktails() {
@@ -30,25 +32,48 @@ export async function getCocktailsByFirstLetter(firstLetter: string) {
   }
 }
 
-function filterCocktailData(cocktails: any[]) {
-  const fields = ["idDrink", "strDrink", "strDrinkThumb"];
-  const filteredCocktails = cocktails.map((cocktail) => {
-    return Object.keys(cocktail)
-      .filter((key) => fields.includes(key))
-      .reduce((acc, key) => ({ ...acc, [key]: cocktail[key] }), {});
-  });
-  return filteredCocktails;
-}
-
 export async function getAllCocktails() {
   try {
     let allCocktails: any[] = [];
     for (let i of "12345679abcdefghijklmnopqrstvwyz") {
       const cocktails = await getCocktailsByFirstLetter(i);
-      const filteredCocktails = filterCocktailData(cocktails);
+      const filteredCocktails = filterDataByFields(cocktails, [
+        "idDrink",
+        "strDrink",
+        "strDrinkThumb",
+      ]);
       allCocktails = [...allCocktails, ...filteredCocktails];
     }
     return allCocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getAllCocktailIdsAndNames() {
+  try {
+    let allCocktails: any[] = [];
+    for (let i of "12345679abcdefghijklmnopqrstvwyz") {
+      const cocktails = await getCocktailsByFirstLetter(i);
+      const filteredCocktails = filterDataByFields(cocktails, [
+        "idDrink",
+        "strDrink",
+      ]);
+      allCocktails = [...allCocktails, ...filteredCocktails];
+    }
+    return allCocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getCocktailDetailsById(id: number) {
+  try {
+    const res = await fetch(`${API_URI}/lookup.php?i=${id}`);
+    const data = await res.json();
+    const cocktail = data.drinks ? data.drinks[0] : {};
+    console.log(cocktail);
+    return cocktail;
   } catch (err) {
     console.error(err);
   }
@@ -96,7 +121,6 @@ export async function getAllIngredients() {
     const allIngredients = data.drinks.sort((a: any, b: any) =>
       a.strIngredient1.localeCompare(b.strIngredient1)
     );
-    console.log(allIngredients);
     return allIngredients;
   } catch (err) {
     console.error(err);

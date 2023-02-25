@@ -11,3 +11,22 @@ function toCapitalCase(str: string) {
 export function pathNameToString(pathName: string) {
   return toCapitalCase(pathName.replaceAll("-or-", "-/-").replaceAll("-", " "));
 }
+
+export function filterDataByFields(data: any[], fields: string[]) {
+  const filteredData = data.map((item) => {
+    return Object.keys(item)
+      .filter((key) => fields.includes(key))
+      .reduce((acc, key) => ({ ...acc, [key]: item[key] }), {});
+  });
+  return filteredData;
+}
+
+export function breakToSentences(paragraph: string) {
+  const sentences = paragraph.split(
+    /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/g
+  );
+  if (sentences[sentences.length - 1] === "") {
+    sentences.pop();
+  }
+  return sentences;
+}

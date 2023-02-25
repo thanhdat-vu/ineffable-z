@@ -5,12 +5,15 @@ import Image from "next/image";
 interface props {
   cocktail?: any;
   className?: string;
+  withCaption?: boolean;
 }
 
-const RecipeCard = ({ cocktail, className }: props) => {
+const RecipeCard = ({ cocktail, className, withCaption = true }: props) => {
   return cocktail ? (
     <Link
-      href={`/cocktails/${stringToPathName(cocktail.strDrink)}`}
+      href={`/cocktails/${stringToPathName(
+        cocktail.idDrink + " " + cocktail.strDrink
+      )}`}
       className={`space-y-2 mb-10 | inline-block border sm:border-2 border-gold text-center ${className}`}
     >
       <figure>
@@ -21,7 +24,7 @@ const RecipeCard = ({ cocktail, className }: props) => {
           width={200}
           height={200}
         />
-        <figcaption>{cocktail.strDrink}</figcaption>
+        {withCaption && <figcaption>{cocktail.strDrink}</figcaption>}
       </figure>
     </Link>
   ) : (

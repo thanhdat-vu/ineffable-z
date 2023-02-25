@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import { useRef, useState } from "react";
-import { Layout, RecipeCard, Breadcrumb, Pagination } from "../components";
+import { Layout, RecipeCard, Breadcrumb, Pagination } from "../../components";
 import { getAllCocktails } from "lib/api";
 import metadata from "json/metadata.json";
 
@@ -38,7 +38,7 @@ const Cocktails: NextPage = ({ allCocktails }: props) => {
         </div>
 
         <div
-          className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
+          className="gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
           ref={scrollToRef}
         >
           {cocktails
