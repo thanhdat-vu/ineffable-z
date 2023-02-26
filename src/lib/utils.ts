@@ -30,3 +30,7 @@ export function breakToSentences(paragraph: string) {
   }
   return sentences;
 }
+
+export function getIngredientImageURI(name: string) {
+  return `https://www.thecocktaildb.com/images/ingredients/${name}.png`;
+}

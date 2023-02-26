@@ -89,6 +89,17 @@ export async function getCocktailsByCategory(category: string) {
   }
 }
 
+export async function getCocktailsByIngredient(ingredientName: string) {
+  try {
+    const res = await fetch(`${API_URI}/filter.php?i=${ingredientName}`);
+    const data = await res.json();
+    const cocktails = data.drinks || [];
+    return cocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getIngredientByID(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);
@@ -121,6 +132,17 @@ export async function getAllIngredients() {
       a.strIngredient1.localeCompare(b.strIngredient1)
     );
     return allIngredients;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getIngredientByName(ingredientName: string) {
+  try {
+    const res = await fetch(`${API_URI}/search.php?i=${ingredientName}`);
+    const data = await res.json();
+    const ingredient = data.ingredients[0];
+    return ingredient;
   } catch (err) {
     console.error(err);
   }

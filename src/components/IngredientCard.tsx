@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { stringToPathName } from "lib/utils";
+import { getIngredientImageURI, stringToPathName } from "lib/utils";
 import Image from "next/image";
 
 interface props {
@@ -8,10 +8,6 @@ interface props {
 }
 
 const IngredientCard = ({ ingredientName, description }: props) => {
-  function getIngredientImageURI(name: string) {
-    return `https://www.thecocktaildb.com/images/ingredients/${name}.png`;
-  }
-
   return ingredientName ? (
     <Link
       href={`/ingredients/${stringToPathName(ingredientName)}`}
