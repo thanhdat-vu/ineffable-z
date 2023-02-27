@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import categories from "json/categories.json";
 import { stringToPathName } from "lib/utils";
+import MobileMenu from "./MobileMenu";
 
 const NabBar = () => {
   // check if user has scrolled
@@ -61,6 +62,8 @@ const NabBar = () => {
             </div>
           </div>
         </div>
+
+        <MobileMenu />
       </div>
 
       {/* On-scrolled Glassmorphism Background */}
