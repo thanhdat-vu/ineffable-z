@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Playfair_Display } from "@next/font/google";
 import Head from "next/head";
-import NabBar from "./NabBar";
+import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 const playfairDisplay = Playfair_Display({
@@ -25,7 +25,7 @@ const Layout = ({ metadata, children }: props) => {
         <meta name="description" content={metadata.description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NabBar />
+      <NavBar />
       <main>{children}</main>
       <Footer />
     </div>

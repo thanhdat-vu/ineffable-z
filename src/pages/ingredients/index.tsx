@@ -1,6 +1,11 @@
 import { GetStaticProps, NextPage } from "next";
 import { useRef, useState } from "react";
-import { Layout, IngredientCard, Breadcrumb, Pagination } from "../components";
+import {
+  Layout,
+  IngredientCard,
+  Breadcrumb,
+  Pagination,
+} from "../../components";
 import { getAllIngredients } from "lib/api";
 import metadata from "json/metadata.json";
 

@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { getPopularCocktails, getPopularIngredients } from "lib/api";
-import { IngredientCard, Layout, RecipeCard } from "components";
+import { IngredientCard, Layout, RecipeCard, SearchBox } from "components";
 import metadata from "json/metadata.json";
 import Link from "next/link";
 import { BsArrowDown } from "react-icons/bs";
@@ -27,10 +27,31 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
             </p>
           </div>
 
-          <p className="w-[22rem] sm:w-96 md:w-full | leading-5 sm:leading-normal text-center">
-            Welcome, stranger! In this place, you can find almost every
-            flavorsome cocktail recipe in the world!
-          </p>
+          <div className="space-y-4 flex flex-col items-center">
+            <p className="w-[22rem] sm:w-96 md:w-full | leading-5 sm:leading-normal text-center">
+              Welcome, stranger! In this place, you can find almost every
+              flavorsome cocktail recipe in the world!
+            </p>
+            <SearchBox
+              id="search"
+              name="search"
+              placeholder={"Which cocktail would you like to make?"}
+              noItemMessage="We couldn't find any cocktail that matches your search"
+              keywords={["a", "aa", "aaa", "b", "bb"]}
+              maxItems={4}
+              styles={{
+                container: "sm:w-96 lg:w-[32rem] relative",
+                input:
+                  "p-3 | w-full bg-white/10 focus:bg-white/20 sm:mb-0 focus:outline-0 shadow-glass font-normal backdrop-blur",
+                listbox: "absolute w-full bg-white/10 backdrop-blur",
+                item: "px-4 py-2 hover:bg-white/20 hover:cursor-pointer",
+                highlightedItem: "px-6 py-2 bg-white/10 ",
+                noItem: "px-12 py-16 | bg-white/10 text-center",
+                clearButton:
+                  "absolute inset-y-0 right-1 text-2xl text-gray-400 hover:text-white",
+              }}
+            />
+          </div>
 
           <div>
             <p>Not sure what to look for?</p>

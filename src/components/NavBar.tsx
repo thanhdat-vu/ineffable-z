@@ -5,7 +5,7 @@ import categories from "json/categories.json";
 import { stringToPathName } from "lib/utils";
 import MobileMenu from "./MobileMenu";
 
-const NabBar = () => {
+const NavBar = () => {
   // check if user has scrolled
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollPositionRef = useRef(0);
@@ -77,4 +77,4 @@ const NabBar = () => {
   );
 };
 
-export default NabBar;
+export default NavBar;
