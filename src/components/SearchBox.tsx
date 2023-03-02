@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsX } from "react-icons/bs";
 import OutsiderAlerter from "./OutsiderAlerter";
 
 interface Props {
   id?: string;
   name?: string;
+  defaultValue?: string;
   placeholder?: string;
   noItemMessage?: string;
   keywords?: string[];
@@ -23,16 +24,18 @@ interface Props {
 function SearchBox({
   id,
   name,
+  defaultValue,
   placeholder,
   noItemMessage,
   keywords = [],
   maxItems = 8,
   styles,
 }: Props) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(defaultValue);
   const [suggestedItems, setSuggestedItems] = useState<string[]>([]);
   const [selectingIndex, setSelectingIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
@@ -59,6 +62,7 @@ function SearchBox({
   function handleClearClick() {
     setInputValue("");
     setSuggestedItems([]);
+    inputRef.current?.focus();
   }
 
   function handleOnKeyDown(event: React.KeyboardEvent<HTMLElement>) {
@@ -87,6 +91,7 @@ function SearchBox({
           id={id}
           name={name}
           type="text"
+          ref={inputRef}
           value={inputValue}
           onChange={handleInputChange}
           placeholder={placeholder}

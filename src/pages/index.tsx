@@ -62,7 +62,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
                     field:
                       "p-3 | w-full bg-white/10 focus:bg-white/20 backdrop-blur shadow-glass outline-none flex items-center justify-between",
                     menu: "absolute w-full bg-white/10 backdrop-blur",
-                    item: "p-3 | hover:bg-white/20",
+                    item: "p-3 | hover:bg-white/20 hover:cursor-pointer",
                     highlightedItem: "bg-white/10",
                   }}
                 />

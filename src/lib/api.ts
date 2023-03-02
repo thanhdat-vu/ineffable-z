@@ -100,6 +100,17 @@ export async function getCocktailsByIngredient(ingredientName: string) {
   }
 }
 
+export async function searchCocktailByName(query: string) {
+  try {
+    const res = await fetch(`${API_URI}/search.php?s=${query}`);
+    const data = await res.json();
+    const cocktails = data.drinks || [];
+    return cocktails;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getIngredientByID(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);
