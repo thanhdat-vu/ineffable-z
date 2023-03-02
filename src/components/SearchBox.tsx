@@ -81,50 +81,49 @@ function SearchBox({
   }
 
   return (
-    <OutsiderAlerter setFalse={setIsOpen}>
-      <div
-        tabIndex={0}
-        onKeyDown={handleOnKeyDown}
-        className={styles?.container}
-      >
-        <input
-          id={id}
-          name={name}
-          type="text"
-          ref={inputRef}
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          className={`${styles?.input}`}
-          autoComplete="off"
-        />
-        {inputValue && (
-          <button onClick={handleClearClick} className={styles?.clearButton}>
-            <BsX />
-          </button>
-        )}
-        {isOpen && inputValue && (
-          <div className={styles?.listbox}>
-            {suggestedItems.length > 0 ? (
-              <ul>
-                {suggestedItems.map((item, i) => (
-                  <li
-                    key={i}
-                    onClick={() => handleItemSelect(item)}
-                    className={`${styles?.item} ${
-                      i === selectingIndex && styles?.highlightedItem
-                    }`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className={styles?.noItem}>{noItemMessage}</div>
-            )}
-          </div>
-        )}
-      </div>
+    <OutsiderAlerter
+      setFalse={setIsOpen}
+      className={styles?.container}
+      tabIndex={0}
+      onKeyDown={handleOnKeyDown}
+    >
+      <input
+        id={id}
+        name={name}
+        type="text"
+        ref={inputRef}
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        className={`${styles?.input}`}
+        autoComplete="off"
+      />
+      {inputValue && (
+        <button onClick={handleClearClick} className={styles?.clearButton}>
+          <BsX />
+        </button>
+      )}
+      {isOpen && inputValue && (
+        <div className={styles?.listbox}>
+          {suggestedItems.length > 0 ? (
+            <ul>
+              {suggestedItems.map((item, i) => (
+                <li
+                  key={i}
+                  onClick={() => handleItemSelect(item)}
+                  className={`${styles?.item} ${
+                    i === selectingIndex && styles?.highlightedItem
+                  }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className={styles?.noItem}>{noItemMessage}</div>
+          )}
+        </div>
+      )}
     </OutsiderAlerter>
   );
 }

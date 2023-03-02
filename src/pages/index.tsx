@@ -33,14 +33,14 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
               Welcome, stranger! In this place, you can find almost every
               flavorsome cocktail recipe in the world!
             </p>
-            <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+            <form className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
               <SearchBox
                 id="search"
                 name="search"
                 placeholder={"Which cocktail would you like to make?"}
                 noItemMessage="We couldn't find any cocktail that matches your search"
                 keywords={["a", "aa", "aaa", "b", "bb"]}
-                maxItems={4}
+                maxItems={8}
                 styles={{
                   container: "sm:w-96 lg:w-[32rem] relative",
                   input:
@@ -66,11 +66,14 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
                     highlightedItem: "bg-white/10",
                   }}
                 />
-                <button className="py-2 w-32 |  text-rich-black font-bold bg-shiny-gold hover:brightness-125">
+                <button
+                  type="submit"
+                  className="py-2 w-32 |  text-rich-black font-bold bg-shiny-gold hover:brightness-125"
+                >
                   Search
                 </button>
               </div>
-            </div>
+            </form>
           </div>
 
           <div>

@@ -30,7 +30,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
           "Ineffable is the ultimate destination for cocktail lovers! With its vast collection of cocktail recipes from around the world, you can explore and create your favorite drinks. Built with Next.js and TheCocktailDB, Ineffable provides a user-friendly interface that lets you easily find and make your ideal cocktail. Whether you're a beginner or a seasoned mixologist, Ineffable has something for everyone. Start impressing your friends and family with your cocktail-making skills today with Ineffable!",
       }}
     >
-      <div className="my-24 lg:my-32 | w-max mx-auto">
+      <div className="my-24 lg:my-32 | w-max mx-auto min-w-[20rem] md:min-w-[28rem] lg:min-w-[60rem] xl:min-w-[72rem]">
         <Breadcrumb
           items={[
             {
@@ -45,7 +45,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
         />
 
         <div className="my-8 md:my-12 space-y-4">
-          <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+          <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0">
             <SearchBox
               id="search"
               name="search"
@@ -55,7 +55,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
               keywords={["a", "aa", "aaa", "b", "bb"]}
               maxItems={4}
               styles={{
-                container: "w-[53rem] relative",
+                container: "grow relative",
                 input:
                   "p-3 | w-full bg-white/10 focus:bg-white/20 focus:outline-0 shadow-glass font-normal backdrop-blur",
                 listbox: "absolute w-full bg-white/10 backdrop-blur z-10",
@@ -71,7 +71,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
                 options={["Cocktails", "Ingredients"]}
                 onchange={(newIndex) => {}}
                 styles={{
-                  container: "w-40 relative",
+                  container: "grow md:w-40 relative",
                   field:
                     "p-3 | w-full bg-white/10 focus:bg-white/20 backdrop-blur shadow-glass outline-none flex items-center justify-between",
                   menu: "absolute w-full bg-white/10 backdrop-blur z-10",

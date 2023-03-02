@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import OutsiderAlerter from "./OutsiderAlerter";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const Dropdown = ({ options, onchange, styles }: Props) => {
-  // Behaviors
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -41,33 +40,32 @@ const Dropdown = ({ options, onchange, styles }: Props) => {
   }
 
   return (
-    <OutsiderAlerter setFalse={setIsOpen}>
-      <div
-        tabIndex={0}
-        className={styles?.container}
-        onKeyDown={(e) => handleOnKeyDown(e)}
-      >
-        <button onClick={() => setIsOpen(!isOpen)} className={styles.field}>
-          {options[index]}
-          {isOpen ? <BsChevronUp /> : <BsChevronDown />}
-        </button>
-        {isOpen && (
-          <div className={styles?.menu}>
-            {options?.map((option, i) => (
-              <div
-                key={i}
-                tabIndex={0}
-                onClick={() => handleSelecting(i)}
-                className={`${styles?.item} ${
-                  i === index && styles.highlightedItem
-                }`}
-              >
-                {option}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <OutsiderAlerter
+      setFalse={setIsOpen}
+      className={styles?.container}
+      tabIndex={0}
+      onKeyDown={handleOnKeyDown}
+    >
+      <button onClick={() => setIsOpen(!isOpen)} className={styles.field}>
+        {options[index]}
+        {isOpen ? <BsChevronUp /> : <BsChevronDown />}
+      </button>
+      {isOpen && (
+        <div className={styles?.menu}>
+          {options?.map((option, i) => (
+            <div
+              key={i}
+              tabIndex={0}
+              onClick={() => handleSelecting(i)}
+              className={`${styles?.item} ${
+                i === index && styles.highlightedItem
+              }`}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
     </OutsiderAlerter>
   );
 };
