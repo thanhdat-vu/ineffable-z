@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Layout, RecipeCard, Breadcrumb, Pagination } from "../../components";
 import { getCocktailsByCategory } from "lib/api";
 import metadata from "json/metadata.json";
@@ -13,13 +13,8 @@ interface props {
 
 const Category: NextPage = ({ category, cocktailByCategory }: props) => {
   const itemsPerPage = 32;
-  const [cocktails, setCocktails] = useState(
-    cocktailByCategory?.slice(0, itemsPerPage)
-  );
-  useEffect(() => {
-    setCocktails(cocktailByCategory?.slice(0, itemsPerPage));
-  }, [category, cocktailByCategory]);
-
+  const data = cocktailByCategory;
+  let pageData = data?.slice(0, itemsPerPage);
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -52,8 +47,8 @@ const Category: NextPage = ({ category, cocktailByCategory }: props) => {
           className="gap-x-12 sm:gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
           ref={scrollToRef}
         >
-          {cocktails
-            ? cocktails.map((cocktail) => (
+          {pageData
+            ? pageData.map((cocktail) => (
                 <RecipeCard
                   key={cocktail.idDrink}
                   cocktail={cocktail}
@@ -70,10 +65,14 @@ const Category: NextPage = ({ category, cocktailByCategory }: props) => {
         </div>
 
         <Pagination
-          data={cocktailByCategory || []}
-          setData={setCocktails}
-          scrollToElement={scrollToRef.current}
+          totalItem={data?.length || 0}
           itemsPerPage={itemsPerPage}
+          scrollToElement={scrollToRef.current}
+          onPageChange={(pageIndex) => {
+            const firstIndex = (pageIndex - 1) * itemsPerPage;
+            const lastIndex = firstIndex + itemsPerPage;
+            pageData = data?.slice(firstIndex, lastIndex);
+          }}
         />
       </div>
     </Layout>

@@ -10,9 +10,8 @@ interface props {
 
 const Cocktails: NextPage = ({ allCocktails }: props) => {
   const itemsPerPage = 32;
-  const [cocktails, setCocktails] = useState(
-    allCocktails?.slice(0, itemsPerPage)
-  );
+  const data = allCocktails;
+  let pageData = data?.slice(0, itemsPerPage);
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -41,8 +40,8 @@ const Cocktails: NextPage = ({ allCocktails }: props) => {
           className="gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
           ref={scrollToRef}
         >
-          {cocktails
-            ? cocktails.map((cocktail) => (
+          {pageData
+            ? pageData.map((cocktail) => (
                 <RecipeCard
                   key={cocktail.idDrink}
                   cocktail={cocktail}
@@ -59,10 +58,14 @@ const Cocktails: NextPage = ({ allCocktails }: props) => {
         </div>
 
         <Pagination
-          data={allCocktails || []}
-          setData={setCocktails}
-          scrollToElement={scrollToRef.current}
+          totalItem={data?.length || 0}
           itemsPerPage={itemsPerPage}
+          scrollToElement={scrollToRef.current}
+          onPageChange={(pageIndex) => {
+            const firstIndex = (pageIndex - 1) * itemsPerPage;
+            const lastIndex = firstIndex + itemsPerPage;
+            pageData = data?.slice(firstIndex, lastIndex);
+          }}
         />
       </div>
     </Layout>

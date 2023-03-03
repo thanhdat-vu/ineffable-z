@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   Layout,
   RecipeCard,
@@ -19,7 +19,7 @@ interface Props {
 
 const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
   const itemsPerPage = 32;
-  const [pageData, setPageData] = useState(data?.slice(0, itemsPerPage));
+  let pageData = data?.slice(0, itemsPerPage);
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -69,7 +69,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
             <div className="flex space-x-2">
               <Dropdown
                 options={["Cocktails", "Ingredients"]}
-                onchange={(newIndex) => {}}
+                onChange={(newIndex) => {}}
                 styles={{
                   container: "grow md:w-40 relative",
                   field:
@@ -111,10 +111,14 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
         </div>
 
         <Pagination
-          data={data || []}
-          setData={setPageData}
-          scrollToElement={scrollToRef.current}
+          totalItem={data?.length || 0}
           itemsPerPage={itemsPerPage}
+          scrollToElement={scrollToRef.current}
+          onPageChange={(pageIndex) => {
+            const firstIndex = (pageIndex - 1) * itemsPerPage;
+            const lastIndex = firstIndex + itemsPerPage;
+            pageData = data?.slice(firstIndex, lastIndex);
+          }}
         />
       </div>
     </Layout>

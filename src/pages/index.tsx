@@ -56,7 +56,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
               <div className="flex space-x-2">
                 <Dropdown
                   options={["Cocktails", "Ingredients"]}
-                  onchange={(newIndex) => {}}
+                  onChange={(newIndex) => {}}
                   styles={{
                     container: "w-40 relative",
                     field:

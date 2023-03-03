@@ -4,7 +4,7 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 interface Props {
   options: any[];
-  onchange: (index: number) => void;
+  onChange: (index: number) => void;
   styles: {
     container?: string;
     field?: string;
@@ -14,14 +14,14 @@ interface Props {
   };
 }
 
-const Dropdown = ({ options, onchange, styles }: Props) => {
+const Dropdown = ({ options, onChange, styles }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
   function handleSelecting(newIndex: number) {
     setIndex(newIndex);
     setIsOpen(false);
-    onchange(newIndex);
+    onChange(newIndex);
   }
 
   function handleOnKeyDown(event: React.KeyboardEvent<HTMLElement>) {

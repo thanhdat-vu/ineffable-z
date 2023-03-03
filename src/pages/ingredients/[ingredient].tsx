@@ -24,7 +24,8 @@ const Ingredient = ({ ingredient, cocktails }: props) => {
   const descRef = useRef<HTMLDivElement>(null);
 
   const itemsPerPage = 32;
-  const [pageData, setPageData] = useState(cocktails.slice(0, itemsPerPage));
+  const data = cocktails;
+  let pageData = data?.slice(0, itemsPerPage);
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -133,10 +134,14 @@ const Ingredient = ({ ingredient, cocktails }: props) => {
         </div>
 
         <Pagination
-          data={cocktails}
-          setData={setPageData}
-          scrollToElement={scrollToRef.current}
+          totalItem={data?.length || 0}
           itemsPerPage={itemsPerPage}
+          scrollToElement={scrollToRef.current}
+          onPageChange={(pageIndex) => {
+            const firstIndex = (pageIndex - 1) * itemsPerPage;
+            const lastIndex = firstIndex + itemsPerPage;
+            pageData = data?.slice(firstIndex, lastIndex);
+          }}
         />
       </div>
     </Layout>

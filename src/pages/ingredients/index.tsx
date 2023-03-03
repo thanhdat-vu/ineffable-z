@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   Layout,
   IngredientCard,
@@ -15,9 +15,8 @@ interface props {
 
 const Ingredients: NextPage = ({ allIngredients }: props) => {
   const itemsPerPage = 32;
-  const [ingredients, setIngredients] = useState(
-    allIngredients?.slice(0, itemsPerPage)
-  );
+  const data = allIngredients;
+  let pageData = data?.slice(0, itemsPerPage);
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -46,8 +45,8 @@ const Ingredients: NextPage = ({ allIngredients }: props) => {
           className="gap-x-16 xl:gap-x-32 gap-y-6 sm:gap-y-12 xl:gap-y-16 | grid grid-cols-2 lg:grid-cols-4"
           ref={scrollToRef}
         >
-          {ingredients
-            ? ingredients.map((ingredient) => (
+          {pageData
+            ? pageData.map((ingredient) => (
                 <IngredientCard
                   key={ingredient.strIngredient1}
                   ingredientName={ingredient.strIngredient1}
@@ -59,10 +58,14 @@ const Ingredients: NextPage = ({ allIngredients }: props) => {
         </div>
 
         <Pagination
-          data={allIngredients || []}
-          setData={setIngredients}
-          scrollToElement={scrollToRef.current}
+          totalItem={data?.length || 0}
           itemsPerPage={itemsPerPage}
+          scrollToElement={scrollToRef.current}
+          onPageChange={(pageIndex) => {
+            const firstIndex = (pageIndex - 1) * itemsPerPage;
+            const lastIndex = firstIndex + itemsPerPage;
+            pageData = data?.slice(firstIndex, lastIndex);
+          }}
         />
       </div>
     </Layout>

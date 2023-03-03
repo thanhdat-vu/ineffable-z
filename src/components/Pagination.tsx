@@ -7,31 +7,21 @@ import {
 } from "react-icons/ai";
 
 interface props {
-  data: any[];
-  setData: Function;
+  totalItem: number;
   itemsPerPage: number;
   scrollToElement?: HTMLInputElement | null;
-  onPageChange?: (pageIndex: number) => void;
+  onPageChange?: (
+    pageIndex: number,
+  ) => void;
 }
 
 const Pagination = ({
-  data,
-  setData,
+  totalItem,
   itemsPerPage,
   scrollToElement,
   onPageChange,
 }: props) => {
-  const totalItem = data?.length || 0;
   const totalPages = Math.ceil(totalItem / itemsPerPage);
-
-  const handleOnPageChange = (pageIndex: number) => {
-    const firstIndex = (pageIndex - 1) * itemsPerPage;
-    const lastIndex = firstIndex + itemsPerPage;
-    setData(data?.slice(firstIndex, lastIndex));
-    if (scrollToElement) {
-      window.scrollTo(0, scrollToElement.offsetTop - 80);
-    }
-  };
 
   const [pageIndex, setPageIndex] = useState(1);
   const [pageInput, setPageInput] = useState(1);
@@ -40,7 +30,9 @@ const Pagination = ({
     if (newPageIndex >= 1 && newPageIndex <= totalPages) {
       setPageIndex(newPageIndex);
       setPageInput(newPageIndex);
-      handleOnPageChange(newPageIndex);
+      if (scrollToElement) {
+        window.scrollTo(0, scrollToElement.offsetTop - 80);
+      }
       if (onPageChange) {
         onPageChange(newPageIndex);
       }

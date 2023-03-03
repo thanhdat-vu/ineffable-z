@@ -10,6 +10,7 @@ interface Props {
   noItemMessage?: string;
   keywords?: string[];
   maxItems?: number;
+  onChange?: (value: string) => void;
   styles?: {
     container?: string;
     input?: string;
@@ -29,6 +30,7 @@ function SearchBox({
   noItemMessage,
   keywords = [],
   maxItems = 8,
+  onChange,
   styles,
 }: Props) {
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -40,6 +42,9 @@ function SearchBox({
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     setInputValue(value);
+    if (onChange) {
+      onChange(value);
+    }
 
     if (value != "") {
       const newSuggestedItems = keywords
@@ -55,6 +60,9 @@ function SearchBox({
 
   function handleItemSelect(item: string) {
     setInputValue(item);
+    if (onChange) {
+      onChange(item);
+    }
     setSuggestedItems([]);
     setIsOpen(false);
   }
