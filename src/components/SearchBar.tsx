@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import SearchBox from "./SearchBox";
 import Dropdown from "./Dropdown";
-import { useRouter } from "next/router";
+import {
+  getAllCocktailIdsAndNames,
+  getAllCocktailNames,
+  getAllIngredientNames,
+  getAllIngredients,
+} from "lib/api";
 
 interface Props {
   defaultValue?: string;
@@ -12,6 +18,15 @@ const SearchBar = ({ defaultValue }: Props) => {
     keyword: defaultValue,
     isIngredient: 0,
   });
+
+  const [keywords, setKeywords] = useState([]);
+  useEffect(() => {
+    if (searchData.isIngredient) {
+      getAllIngredientNames().then((res) => setKeywords(res));
+    } else {
+      getAllCocktailNames().then((res: any) => setKeywords(res));
+    }
+  }, [searchData.isIngredient]);
 
   const router = useRouter();
   function handleSearch() {
@@ -28,7 +43,7 @@ const SearchBar = ({ defaultValue }: Props) => {
         defaultValue={defaultValue}
         placeholder={"Which cocktail would you like to make?"}
         noItemMessage="We couldn't find any cocktail that matches your search"
-        keywords={[]}
+        keywords={keywords}
         maxItems={8}
         onChange={(value) => {
           setSearchData({ ...searchData, keyword: value });

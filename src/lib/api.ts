@@ -67,6 +67,16 @@ export async function getAllCocktailIdsAndNames() {
   }
 }
 
+export async function getAllCocktailNames() {
+  try {
+    const allCocktails = await getAllCocktailIdsAndNames();
+    const allCocktailNames = allCocktails?.map((cocktail) => cocktail.strDrink);
+    return allCocktailNames;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getCocktailDetailsById(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?i=${id}`);
@@ -143,6 +153,18 @@ export async function getAllIngredients() {
       a.strIngredient1.localeCompare(b.strIngredient1)
     );
     return allIngredients;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getAllIngredientNames() {
+  try {
+    const allIngredients = await getAllIngredients();
+    const allIngredientNames = allIngredients?.map(
+      (ingredient: any) => ingredient.strIngredient1
+    );
+    return allIngredientNames;
   } catch (err) {
     console.error(err);
   }
