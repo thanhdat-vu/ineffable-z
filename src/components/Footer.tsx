@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { AiOutlineRight } from "react-icons/ai";
 import {
   FaFacebookF,
   FaInstagram,
@@ -8,6 +7,7 @@ import {
   FaTiktok,
   FaYoutube,
 } from "react-icons/fa";
+import Newsletter from "./Newsletter";
 
 const Footer = () => {
   return (
@@ -16,18 +16,7 @@ const Footer = () => {
       <div className="text-center">
         <h3 className="mb-4 | font-bold">JOIN OUR EXCLUSIVE GROUP</h3>
         <p>We are cocktail lover, would you like to join us?</p>
-        <form className="mt-6 | w-80 sm:w-96 flex items-center mx-auto text-rich-black bg-white">
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email here!"
-            className="grow p-3 outline-0"
-            required
-          />
-          <button className="p-3" aria-label="Submit">
-            <AiOutlineRight />
-          </button>
-        </form>
+        <Newsletter />
       </div>
       <div className="px-8 pb-16 | flex justify-between items-center md:items-start flex-col md:flex-row space-y-2">
         {/* Logo */}

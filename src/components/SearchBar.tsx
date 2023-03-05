@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SearchBox from "./SearchBox";
 import Dropdown from "./Dropdown";
-import {
-  getAllCocktailIdsAndNames,
-  getAllCocktailNames,
-  getAllIngredientNames,
-  getAllIngredients,
-} from "lib/api";
+import { getAllCocktailNames, getAllIngredientNames } from "lib/api";
 
 interface Props {
   defaultValue?: string;
