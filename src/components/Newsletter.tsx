@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { AiOutlineRight } from "react-icons/ai";
+import {
+  AiOutlineCheck,
+  AiOutlineClose,
+  AiOutlineLeft,
+  AiOutlineRight,
+} from "react-icons/ai";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
 
   async function subscribeToNewsletter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    await fetch("/api/newsletter", {
+    const res = await fetch("/api/newsletter", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,6 +21,37 @@ const Newsletter = () => {
         email,
       }),
     });
+    const { success } = await res.json();
+    if (success) {
+      setStatus("success");
+    } else {
+      setStatus("error");
+    }
+    setEmail("");
+  }
+
+  if (status != "") {
+    return (
+      <div
+        className={`mt-6 | w-80 sm:w-96 flex items-center mx-auto text-green-500 bg-white 
+          ${status == "success" && "text-green-500"}
+          ${status == "error" && "text-red-500"}
+        `}
+      >
+        <div className="p-3 grow text-left">
+          {status == "success" && "Welcome! You are a member of the group."}
+          {status == "error" && "Please enter valid email address!"}
+        </div>
+        <button
+          type="submit"
+          className="p-4 font-bold hover:bg-gray-200"
+          onClick={() => setStatus("")}
+        >
+          {status == "success" && <AiOutlineCheck />}
+          {status == "error" && <AiOutlineClose />}
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -31,7 +68,7 @@ const Newsletter = () => {
         onChange={(e) => setEmail(e.currentTarget.value)}
         required
       />
-      <button type="submit" className="p-3">
+      <button type="submit" className="p-4 hover:bg-gray-200">
         <AiOutlineRight />
       </button>
     </form>
