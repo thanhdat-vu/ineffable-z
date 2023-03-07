@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Layout, Breadcrumb, RecipeCard, Pagination } from "../../components";
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
@@ -22,6 +22,13 @@ const Ingredient = ({ ingredient, cocktails }: props) => {
   // Description
   const [showLess, setShowLess] = useState(true);
   const descRef = useRef<HTMLDivElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
+  useEffect(() => {
+    const pElement = descRef.current;
+    if (pElement) {
+      setIsOverflowing(pElement.offsetHeight < pElement.scrollHeight);
+    }
+  }, []);
 
   const itemsPerPage = 32;
   const data = cocktails;
@@ -76,28 +83,27 @@ const Ingredient = ({ ingredient, cocktails }: props) => {
                 Description
               </h3>
 
-              <div
-                className="w-80 lg:min-h-[12rem] sm:w-[28rem] lg:w-96 xl:w-[36rem] "
-                ref={descRef}
-              >
+              <div className="w-80 lg:min-h-[12rem] sm:w-[28rem] lg:w-96 xl:w-[36rem] ">
                 {ingredient.strDescription ? (
                   <>
                     <p
-                      className={`${
-                        showLess && "h-48"
-                      } leading-8 text-clip overflow-hidden text-justify`}
+                      className={`leading-8 text-clip overflow-hidden text-justify
+                      ${showLess && "h-48"}`}
+                      ref={descRef}
                     >
                       {ingredient.strDescription}
                     </p>
-                    <button
-                      className="italic"
-                      onClick={() => {
-                        window.scrollTo(0, descRef.current!.offsetTop - 80);
-                        setShowLess(!showLess);
-                      }}
-                    >
-                      {showLess ? "...Read more" : "Read less"}
-                    </button>
+                    {isOverflowing && (
+                      <button
+                        className="italic"
+                        onClick={() => {
+                          window.scrollTo(0, descRef.current!.offsetTop - 80);
+                          setShowLess(!showLess);
+                        }}
+                      >
+                        {showLess ? "...Read more" : "Read less"}
+                      </button>
+                    )}
                   </>
                 ) : (
                   <p>No description</p>
