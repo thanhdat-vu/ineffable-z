@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Layout,
   IngredientCard,
@@ -16,7 +16,7 @@ interface props {
 const Ingredients: NextPage = ({ allIngredients }: props) => {
   const itemsPerPage = 32;
   const data = allIngredients;
-  let pageData = data?.slice(0, itemsPerPage);
+  const [pageData, setPageData] = useState(data?.slice(0, itemsPerPage));
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -64,7 +64,7 @@ const Ingredients: NextPage = ({ allIngredients }: props) => {
           onPageChange={(pageIndex) => {
             const firstIndex = (pageIndex - 1) * itemsPerPage;
             const lastIndex = firstIndex + itemsPerPage;
-            pageData = data?.slice(firstIndex, lastIndex);
+            setPageData(data?.slice(firstIndex, lastIndex));
           }}
         />
       </div>

@@ -8,7 +8,7 @@ interface Props {
   defaultValue?: string;
 }
 
-const SearchBar = ({ defaultValue }: Props) => {
+const SearchBar = ({ defaultValue = "" }: Props) => {
   const [searchData, setSearchData] = useState({
     keyword: defaultValue,
     isIngredient: 0,

@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Layout,
   RecipeCard,
@@ -18,7 +18,11 @@ interface Props {
 
 const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
   const itemsPerPage = 32;
-  let pageData = data?.slice(0, itemsPerPage);
+  const [pageData, setPageData] = useState(data?.slice(0, itemsPerPage));
+  useEffect(() => {
+    setPageData(data?.slice(0, itemsPerPage));
+  }, [data]);
+
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -78,7 +82,7 @@ const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
           onPageChange={(pageIndex) => {
             const firstIndex = (pageIndex - 1) * itemsPerPage;
             const lastIndex = firstIndex + itemsPerPage;
-            pageData = data?.slice(firstIndex, lastIndex);
+            setPageData(data?.slice(firstIndex, lastIndex));
           }}
         />
       </div>

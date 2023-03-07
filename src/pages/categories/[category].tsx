@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Layout, RecipeCard, Breadcrumb, Pagination } from "../../components";
 import { getCocktailsByCategory } from "lib/api";
 import metadata from "json/metadata.json";
@@ -14,7 +14,7 @@ interface props {
 const Category: NextPage = ({ category, cocktailByCategory }: props) => {
   const itemsPerPage = 32;
   const data = cocktailByCategory;
-  let pageData = data?.slice(0, itemsPerPage);
+  const [pageData, setPageData] = useState(data?.slice(0, itemsPerPage));
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -71,7 +71,7 @@ const Category: NextPage = ({ category, cocktailByCategory }: props) => {
           onPageChange={(pageIndex) => {
             const firstIndex = (pageIndex - 1) * itemsPerPage;
             const lastIndex = firstIndex + itemsPerPage;
-            pageData = data?.slice(firstIndex, lastIndex);
+            setPageData(data?.slice(firstIndex, lastIndex));
           }}
         />
       </div>
