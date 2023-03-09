@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import categories from "json/categories.json";
 import { stringToPathName } from "lib/utils";
+import { useRouter } from "next/router";
 
 const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +20,13 @@ const MobileMenu = () => {
   function closeMenu() {
     setIsMenuOpen(false);
     setIsSubMenuOpen(false);
+  }
+
+  const [keyword, setKeyword] = useState("");
+  const router = useRouter();
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    router.push(`/search?q=${keyword}&isIngredient=0`);
   }
 
   return (
@@ -39,12 +47,17 @@ const MobileMenu = () => {
             </button>
           </div>
 
-          <form className="m-4 | flex items-center text-rich-black bg-white">
+          <form
+            className="m-4 | flex items-center text-rich-black bg-white"
+            onSubmit={handleSearch}
+          >
             <input
               id="keyword"
               type="text"
               placeholder="Cocktail recipe lookup..."
               className="grow p-3 outline-0"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
             />
             <button className="p-3 text-lg">
               <AiOutlineSearch />
