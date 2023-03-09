@@ -1,16 +1,32 @@
 import type { GetStaticProps, NextPage } from "next";
-import { getPopularCocktails, getPopularIngredients } from "lib/api";
+import {
+  getPopularCocktails,
+  getPopularIngredients,
+  getRandomCocktail,
+} from "lib/api";
 import { IngredientCard, Layout, RecipeCard, SearchBar } from "components";
 import metadata from "json/metadata.json";
 import Link from "next/link";
 import { BsArrowDown } from "react-icons/bs";
+import { useRouter } from "next/router";
+import { stringToPathName } from "lib/utils";
 
-interface props {
+interface Props {
   popularCocktails?: Array<any>;
   popularIngredients?: Array<any>;
 }
 
-const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
+const Home: NextPage = ({ popularCocktails, popularIngredients }: Props) => {
+  const router = useRouter();
+  async function handleRandom() {
+    const randomCocktail = await getRandomCocktail();
+    router.push(
+      `/cocktails/${stringToPathName(
+        randomCocktail?.idDrink + "-" + randomCocktail?.strDrink
+      )}`
+    );
+  }
+
   return (
     <Layout metadata={metadata.home}>
       {/* Hero Section */}
@@ -39,12 +55,12 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
 
           <div>
             <p>Not sure what to look for?</p>
-            <Link
-              href="/cocktails/random"
+            <button
               className="px-8 py-3 mt-2 | block bg-gray-400 hover:brightness-125 font-bold text-rich-black"
+              onClick={handleRandom}
             >
               Give me anything
-            </Link>
+            </button>
           </div>
 
           <BsArrowDown className="mx-auto text-xl animate-bounce" />

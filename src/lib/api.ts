@@ -121,6 +121,20 @@ export async function searchCocktailByName(query: string) {
   }
 }
 
+export async function getRandomCocktail() {
+  try {
+    const res = await fetch(`${API_URI}/random.php`);
+    const data = await res.json();
+    const cocktail = data.drinks[0];
+    return {
+      idDrink: cocktail.idDrink,
+      strDrink: cocktail.strDrink,
+    };
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function getIngredientByID(id: number) {
   try {
     const res = await fetch(`${API_URI}/lookup.php?iid=${id}`);
