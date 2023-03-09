@@ -31,7 +31,7 @@ const SearchBar = ({ defaultValue = "" }: Props) => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0">
+    <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
       <SearchBox
         id="search"
         name="search"

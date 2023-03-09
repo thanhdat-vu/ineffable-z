@@ -32,7 +32,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: props) => {
               Welcome, stranger! In this place, you can find almost every
               flavorsome cocktail recipe in the world!
             </p>
-            <div className="w-[19rem] md:w-[51rem]">
+            <div className="w-[19rem] sm:w-[25rem] md:w-[45rem] lg:w-[51rem]">
               <SearchBar />
             </div>
           </div>
