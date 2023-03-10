@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Layout, Breadcrumb, RecipeCard, Pagination } from "../../components";
-import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  getAllIngredients,
-  getCocktailsByIngredient,
-  getIngredientByName,
-} from "lib/api";
-import {
-  getIngredientImageURI,
-  pathNameToString,
-  stringToPathName,
-} from "lib/utils";
+import { GetServerSideProps } from "next";
+import { getCocktailsByIngredient, getIngredientByName } from "lib/api";
+import { getIngredientImageURI, pathNameToString } from "lib/utils";
 import Image from "next/image";
 
 interface props {
@@ -154,20 +146,7 @@ const Ingredient = ({ ingredient, cocktails }: props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const ingredients = await getAllIngredients();
-  const paths = ingredients!.map((ingredient: any) => ({
-    params: {
-      ingredient: stringToPathName(ingredient.strIngredient1),
-    },
-  }));
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const pathname = context.params?.ingredient as string;
   const ingredientName = pathNameToString(pathname);
   const ingredient = await getIngredientByName(ingredientName);

@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import {
   Breadcrumb,
   Carousel,
@@ -6,8 +6,8 @@ import {
   Layout,
   RecipeCard,
 } from "components";
-import { getAllCocktailIdsAndNames, getCocktailDetailsById } from "lib/api";
-import { breakToSentences, stringToPathName } from "lib/utils";
+import { getCocktailDetailsById } from "lib/api";
+import { breakToSentences } from "lib/utils";
 
 interface props {
   cocktail?: any;
@@ -18,7 +18,7 @@ const Recipe: NextPage = ({ cocktail }: props) => {
     const ingredients = [];
     for (let i = 1; cocktail[`strIngredient${i}`]; i++) {
       let description =
-        cocktail[`strMeasure${i}`] + cocktail[`strIngredient${i}`];
+        (cocktail[`strMeasure${i}`] || "") + cocktail[`strIngredient${i}`];
       ingredients.push({
         strIngredient: cocktail[`strIngredient${i}`],
         description: description,
@@ -121,20 +121,7 @@ const Recipe: NextPage = ({ cocktail }: props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const cocktailIdsAndNames = await getAllCocktailIdsAndNames();
-  const paths = cocktailIdsAndNames!.map((cocktail: any) => ({
-    params: {
-      recipe: stringToPathName(cocktail.idDrink + " " + cocktail.strDrink),
-    },
-  }));
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const pathName = context.params?.recipe as string;
   const cocktailId = Number(pathName.split("-")[0]);
   const cocktail = await getCocktailDetailsById(cocktailId);

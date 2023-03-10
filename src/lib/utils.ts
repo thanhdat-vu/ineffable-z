@@ -1,5 +1,9 @@
 export function stringToPathName(str: string) {
-  return str.toLowerCase().replaceAll("/", "or").replaceAll(" ", "-");
+  return str
+    .toLowerCase()
+    .replaceAll("-", "_")
+    .replaceAll("/", "or")
+    .replaceAll(" ", "-");
 }
 
 function toCapitalCase(str: string) {
@@ -9,7 +13,9 @@ function toCapitalCase(str: string) {
 }
 
 export function pathNameToString(pathName: string) {
-  return toCapitalCase(pathName.replaceAll("-or-", "-/-").replaceAll("-", " "));
+  return toCapitalCase(
+    pathName.replaceAll("-or-", "-/-").replaceAll("-", " ").replaceAll("_", "-")
+  );
 }
 
 export function filterDataByFields(data: any[], fields: string[]) {
