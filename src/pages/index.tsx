@@ -1,22 +1,25 @@
 import type { GetStaticProps, NextPage } from "next";
 import {
+  getRandomCocktail,
   getPopularCocktails,
   getPopularIngredients,
-  getRandomCocktail,
 } from "lib/api";
-import { IngredientCard, Layout, RecipeCard, SearchBar } from "components";
-import metadata from "json/metadata.json";
-import Link from "next/link";
-import { BsArrowDown } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { stringToPathName } from "lib/utils";
+import metadata from "json/metadata.json";
+import Link from "next/link";
+import { Layout, SearchBar, RecipeCard, IngredientCard } from "components";
+import { BsArrowDown } from "react-icons/bs";
 
-interface Props {
+interface HomeProps {
   popularCocktails?: Array<any>;
   popularIngredients?: Array<any>;
 }
 
-const Home: NextPage = ({ popularCocktails, popularIngredients }: Props) => {
+const Home: NextPage<HomeProps> = ({
+  popularCocktails,
+  popularIngredients,
+}) => {
   const router = useRouter();
   async function handleRandom() {
     const randomCocktail = await getRandomCocktail();
@@ -43,7 +46,7 @@ const Home: NextPage = ({ popularCocktails, popularIngredients }: Props) => {
             </p>
           </div>
 
-          <div className="space-y-4 flex flex-col items-center">
+          <div className="space-y-4 | flex flex-col items-center">
             <p className="w-[22rem] sm:w-96 md:w-full | leading-5 sm:leading-normal text-center">
               Welcome, stranger! In this place, you can find almost every
               flavorsome cocktail recipe in the world!
