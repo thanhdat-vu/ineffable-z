@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ineffable-z.vercel.app
+
+# Sitemaps
+Sitemap: https://ineffable-z.vercel.app/sitemap.xml
