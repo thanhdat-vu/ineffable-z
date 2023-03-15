@@ -1,28 +1,27 @@
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import { useEffect, useRef, useState } from "react";
 import {
   Layout,
-  RecipeCard,
-  Breadcrumb,
-  Pagination,
-  IngredientCard,
   SearchBar,
+  Breadcrumb,
+  RecipeCard,
+  IngredientCard,
+  Pagination,
 } from "../components";
 import { getIngredientByName, searchCocktailByName } from "lib/api";
 
-interface Props {
+interface SearchProps {
   data?: any[];
   q?: string;
   isIngredient?: boolean;
 }
 
-const Search: NextPage = ({ data, q, isIngredient = false }: Props) => {
+const Search: NextPage<SearchProps> = ({ data, q, isIngredient = false }) => {
   const itemsPerPage = 32;
   const [pageData, setPageData] = useState(data?.slice(0, itemsPerPage));
   useEffect(() => {
     setPageData(data?.slice(0, itemsPerPage));
   }, [data]);
-
   const scrollToRef = useRef<HTMLInputElement>(null);
 
   return (
