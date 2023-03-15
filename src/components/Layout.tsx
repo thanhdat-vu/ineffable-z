@@ -23,6 +23,10 @@ const Layout = ({ metadata, children }: props) => {
       <Head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
+        <meta
+          name="google-site-verification"
+          content="L1eYSRfUipk7JGlNhnM00vVKGbHuYhx6WRjXicFBKVM"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
